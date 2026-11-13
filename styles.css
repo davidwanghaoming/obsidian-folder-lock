@@ -1,0 +1,14 @@
+.folder-lock .setting-item { padding: 10px 0; }
+.folder-lock .folder-lock-hint { color: var(--text-muted); font-size: var(--font-ui-small); }
+.folder-lock .folder-lock-error { color: var(--text-error); }
+.folder-lock .folder-lock-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px; }
+.folder-lock .folder-lock-report { max-height: 65vh; overflow: auto; user-select: text; }
+.folder-lock .folder-lock-path { overflow-wrap: anywhere; }
+.folder-lock .folder-lock-primary { margin: 12px 0; }
+/* Presentation only; real confidentiality comes from authenticated encryption, not CSS. */
+.nav-folder.folder-lock-explorer-locked > .nav-folder-children { display: none !important; }
+.folder-lock-badge { display: inline-flex; margin-inline-start: 6px; color: var(--text-muted); align-items: center; }
+.folder-lock-badge svg { width: 13px; height: 13px; }
+.folder-lock-shielded .cm-content { pointer-events: none; caret-color: transparent; }
+.folder-lock-shielded .view-content { user-select: none; }
+.folder-lock-placeholder { color: var(--text-muted); padding: 12px; }

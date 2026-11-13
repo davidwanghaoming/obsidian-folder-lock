@@ -1,0 +1,33 @@
+{
+  "name": "obsidian-folder-lock",
+  "version": "0.2.1",
+  "private": true,
+  "description": "Lock folders and notes with independent passwords and nested encryption.",
+  "scripts": {
+    "dev": "node esbuild.config.mjs --watch",
+    "typecheck": "tsc --noEmit",
+    "build": "npm run typecheck && node esbuild.config.mjs",
+    "test": "npm run typecheck && esbuild test/crypto.test.ts test/engine.test.ts test/layers.test.ts test/plugin.test.ts test/v2.test.ts test/display.test.ts test/startup.test.ts --bundle --platform=node --format=cjs --alias:obsidian=./test/obsidian-mock.ts --outdir=.test-build && node --test .test-build/*.test.js"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "esbuild": "^0.25.0",
+    "linkedom": "^0.18.15",
+    "obsidian": "latest",
+    "typescript": "^5.9.0"
+  },
+  "author": "王浩铭",
+  "license": "GPL-3.0-only",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/davidwanghaoming/obsidian-folder-lock.git"
+  },
+  "bugs": {
+    "url": "https://github.com/davidwanghaoming/obsidian-folder-lock/issues"
+  },
+  "homepage": "https://github.com/davidwanghaoming/obsidian-folder-lock#readme",
+  "keywords": [
+    "obsidian-plugin",
+    "encryption"
+  ]
+}

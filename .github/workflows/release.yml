@@ -1,0 +1,56 @@
+name: Release Obsidian plugin
+
+# Obsidian requires the GitHub release tag to equal manifest.json "version"
+# exactly (for example 0.2.1), with no "v" prefix.
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Use Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Verify tag matches manifest version
+        run: |
+          set -euo pipefail
+          tag="${GITHUB_REF_NAME}"
+          if [[ ! "$tag" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Tag '$tag' must be a SemVer version such as 0.2.1, with no 'v' prefix."
+            exit 1
+          fi
+          version="$(node -p "require('./manifest.json').version")"
+          if [ "$tag" != "$version" ]; then
+            echo "Tag '$tag' does not match manifest.json version '$version'."
+            exit 1
+          fi
+
+      - name: Install, test, and build
+        run: |
+          npm ci
+          npm test
+          npm run build
+
+      - name: Create GitHub release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          tag="${GITHUB_REF_NAME}"
+          # Attachments must be named main.js, manifest.json, and styles.css
+          # at the release root (not only inside source archives).
+          cp dist/main.js dist/manifest.json dist/styles.css .
+          gh release create "$tag" \
+            --title="$tag" \
+            --generate-notes \
+            main.js manifest.json styles.css

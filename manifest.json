@@ -1,0 +1,10 @@
+{
+  "id": "folder-lock",
+  "name": "Folder Lock",
+  "version": "0.2.1",
+  "minAppVersion": "1.4.0",
+  "description": "Lock folders and notes with independent passwords and nested encryption.",
+  "author": "王浩铭",
+  "authorUrl": "https://github.com/davidwanghaoming",
+  "isDesktopOnly": false
+}
